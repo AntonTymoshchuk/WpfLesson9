@@ -1,0 +1,98 @@
+﻿<Window x:Class="WpfLesson9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLesson9"
+        xmlns:models="clr-namespace:WpfLesson9.Models"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="800" Height="600">
+    <Window.Resources>
+        <models:User x:Key="Cheburek" Id="20" FirstName="Chelovek" LastName="Cheburek" Path="/Images/User.png"/>
+    </Window.Resources>
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top" FontSize="18">
+            <MenuItem Header="File"/>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="View" SubmenuOpened="MenuItem_SubmenuOpened">
+                <MenuItem Header="Maximize"/>
+                <MenuItem Header="Minimize" IsCheckable="True" IsChecked="True" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="Theme" IsCheckable="True" StaysOpenOnClick="True"/>
+            </MenuItem>
+        </Menu>
+
+        <TextBlock Text="{Binding Source={StaticResource Cheburek},Path=FirstName}"/>
+
+        <Grid DockPanel.Dock="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.45*"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="0.1*" MinWidth="100"/>
+                <ColumnDefinition Width="2"/>
+                <ColumnDefinition Width="0.45*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Users" FontSize="24" TextAlignment="Center" VerticalAlignment="Center"/>
+            <ListBox x:Name="usersListBox" Grid.Row="1" Grid.Column="0" Margin="10,0,10,0" SelectionChanged="UsersListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="80">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding Path}"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.6*"/>
+                                    <RowDefinition Height="0.6*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding FirstName}" FontSize="36" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="1" Text="{Binding LastName}" FontSize="24" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <GridSplitter Grid.Row="1" Grid.Column="1" Background="Black" HorizontalAlignment="Stretch"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <Button x:Name="ToAdministrators" Content="&gt;&gt;&gt;" FontSize="24" Height="50" Margin="3,3,3,3" Click="ToAdministrators_Click"/>
+                <Button x:Name="ToUsers" Content="&lt;&lt;&lt;" FontSize="24" Height="50" Margin="3,3,3,3" Click="ToUsers_Click"/>
+                <Button x:Name="Scroll" Content="Scroll" FontSize="24" Height="50" Margin="3,3,3,3" Click="Scroll_Click"/>
+                <Button x:Name="Edit" Content="Edit" FontSize="25" Height="50" Margin="3,3,3,3" Click="Edit_Click"/>
+            </StackPanel>
+
+            <GridSplitter Grid.Row="1" Grid.Column="3" Background="Black" HorizontalAlignment="Stretch"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="4" Text="Administrators" FontSize="24" TextAlignment="Center" VerticalAlignment="Center"/>
+            <ListBox x:Name="administratorsListBox" Grid.Row="1" Grid.Column="4" Margin="10,0,10,0" SelectionChanged="AdminsListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="80">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding Path}"/>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.6*"/>
+                                    <RowDefinition Height="0.6*"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Text="{Binding FirstName}" FontSize="36" VerticalAlignment="Center"/>
+                                <TextBlock Grid.Row="1" Text="{Binding LastName}" FontSize="24" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </DockPanel>
+</Window>
